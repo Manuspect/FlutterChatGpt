@@ -9,12 +9,15 @@ class BottomPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15)
+      ),
       width: 768,
       height: 150,
       child: BottomSheet(
         enableDrag: false,
-        backgroundColor: AppColors.mainBackground,
+        backgroundColor: Color(0xDD0C0C0C),
         builder: (context) {
           return const Column(
             mainAxisAlignment: MainAxisAlignment.end,
