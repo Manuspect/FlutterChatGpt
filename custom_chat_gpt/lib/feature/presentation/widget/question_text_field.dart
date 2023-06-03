@@ -1,17 +1,24 @@
+import 'package:custom_chat_gpt/feature/presentation/bloc/bloc/send_question_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../common/app_colors.dart';
 
 class QuestionTextField extends StatelessWidget {
-  const QuestionTextField({super.key});
-
+  QuestionTextField({super.key});
+  final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: _controller,
       decoration: InputDecoration(
         suffixIcon: IconButton(
           icon: const Icon(Icons.send),
-          onPressed: () {},
+          onPressed: () {
+            context.read<SendQuestionBloc>().add(SendButtonPressed(_controller.text));
+            // BlocProvider.of<SendQuestionBloc>(context).add(SendButtonPressed(_controller.text));
+            _controller.clear();
+          },
         ),
         suffixIconConstraints: const BoxConstraints(minWidth: 60),
         suffixIconColor: AppColors.iconBlueColor,

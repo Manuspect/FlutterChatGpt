@@ -19,3 +19,4 @@ class ChatWidget extends StatelessWidget {
     );
   }
 }
+

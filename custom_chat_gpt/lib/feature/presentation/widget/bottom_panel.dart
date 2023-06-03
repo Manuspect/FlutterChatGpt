@@ -17,14 +17,14 @@ class BottomPanel extends StatelessWidget {
       height: 150,
       child: BottomSheet(
         enableDrag: false,
-        backgroundColor: Color(0xDD0C0C0C),
+        backgroundColor: const Color(0xDD0C0C0C),
         builder: (context) {
-          return const Column(
+          return Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              RegenerateButton(),
+              const RegenerateButton(),
               Padding(
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                     bottom: 30, top: 8, left: 8, right: 8),
                 child: QuestionTextField(),
               ),
