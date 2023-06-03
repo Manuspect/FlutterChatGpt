@@ -1,3 +1,4 @@
+import 'package:custom_chat_gpt/feature/presentation/widget/chat_content.dart';
 import 'package:flutter/material.dart';
 
 import 'bottom_panel.dart';
@@ -7,12 +8,10 @@ class ChatWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return const Stack(
       children: [
-        Container(
-            // color: Colors.amber,
-            ),
-        const Align(
+        Center(child: ChatContent()),
+        Align(
           alignment: Alignment.bottomCenter,
           child: BottomPanel(),
         ),
