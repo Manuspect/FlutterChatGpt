@@ -1,4 +1,5 @@
 import 'package:custom_chat_gpt/common/app_colors.dart';
+import 'package:custom_chat_gpt/feature/presentation/widget/chat_widget.dart';
 import 'package:custom_chat_gpt/feature/presentation/widget/drawer_content.dart';
 import 'package:flutter/material.dart';
 
@@ -13,139 +14,34 @@ class HomePage extends StatelessWidget {
             ? Scaffold(
                 backgroundColor: AppColors.mainBackground,
                 appBar: AppBar(),
-                drawer: Container(
+                drawer: const SizedBox(
                   width: 300,
-                  child: const Drawer(
+                  child: Drawer(
                     child: DrawerContent(),
                   ),
                 ),
                 body: Container(
                   color: AppColors.mainBackground,
-                  child: Stack(
-                        children: [
-                          Container(
-                              // color: Colors.amber,
-                              ),
-                          Align(
-                            alignment: Alignment.bottomCenter,
-                            child: BottomPanel(),
-                          ),
-                        ],
-                      ),
+                  child: const ChatWidget(),
                 ),
                 // bottomSheet: BottomPanel(),
               )
-            : Scaffold(
+            : const Scaffold(
                 body: Row(
                   children: [
-                    Container(
-                      child: const DrawerContent(),
+                    SizedBox(
                       width: 300,
+                      child: DrawerContent(),
                     ),
                     Expanded(
                       flex: 3,
-                      child: Stack(
-                        children: [
-                          Container(
-                              // color: Colors.amber,
-                              ),
-                          Align(
-                            alignment: Alignment.bottomCenter,
-                            child: BottomPanel(),
-                          ),
-                        ],
-                      ),
+                      child: ChatWidget(),
                     ),
                   ],
                 ),
                 // bottomSheet: BottomPanel(),
               );
       },
-    );
-  }
-
-  Widget BottomPanel() {
-    return Container(
-      width: 768,
-      height: 150,
-      child: BottomSheet(
-        enableDrag: false,
-        backgroundColor: AppColors.mainBackground,
-        builder: (context) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              RegenerateButton(),
-              Padding(
-                padding: const EdgeInsets.only(
-                    bottom: 30, top: 8, left: 8, right: 8),
-                child: QuestionField(),
-              ),
-            ],
-          );
-        },
-        onClosing: () {},
-      ),
-    );
-  }
-
-  Widget RegenerateButton() {
-    return Container(
-      width: 200,
-      height: 48,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        color: AppColors.inputFieldBackground,
-        border: Border.all(
-          color: AppColors.regenerateButtonBorderColor,
-        ),
-      ),
-      child: GestureDetector(
-        onTap: () {},
-        child: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.refresh,
-              color: AppColors.iconBlueColor,
-            ),
-            Text(
-              'Regenerate',
-              style: TextStyle(
-                color: AppColors.iconBlueColor,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget QuestionField() {
-    return TextField(
-      decoration: InputDecoration(
-        suffixIcon: IconButton(
-          icon: const Icon(Icons.send),
-          onPressed: () {},
-        ),
-        suffixIconConstraints: const BoxConstraints(minWidth: 60),
-        suffixIconColor: AppColors.iconBlueColor,
-        focusColor: AppColors.inputFieldBackground,
-        label: Text('Send a message'),
-        floatingLabelBehavior: FloatingLabelBehavior.never,
-        fillColor: AppColors.inputFieldBackground,
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(
-            color: AppColors.iconBlueColor,
-          ),
-        ),
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(16),
-            borderSide: const BorderSide(
-              color: AppColors.iconBlueColor,
-            )),
-      ),
     );
   }
 }
