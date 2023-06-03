@@ -2,13 +2,13 @@ import 'package:equatable/equatable.dart';
 
 class MessageEntity extends Equatable {
   final String content;
-  final String chatId;
-  final String userId;
+  final int chatId;
+  final int userId;
 
   const MessageEntity({
       required this.content,
-      this.chatId = 'undefined',
-      this.userId = 'undefined'
+      this.chatId = 0,
+      this.userId = 0,
       });
 
   @override
