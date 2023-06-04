@@ -1,12 +1,16 @@
 import 'package:custom_chat_gpt/common/app_colors.dart';
-import 'package:custom_chat_gpt/feature/presentation/bloc/bloc/send_question_bloc.dart';
+// import 'package:custom_chat_gpt/feature/presentation/bloc/bloc/send_question_bloc.dart';
 import 'package:custom_chat_gpt/feature/presentation/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'feature/presentation/bloc/test_bloc/chat_bloc.dart';
+
 void main() {
   runApp(const MainApp());
 }
+
+
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
@@ -15,8 +19,8 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<SendQuestionBloc>(
-          create: (context) => SendQuestionBloc(),
+        BlocProvider<ChatBloc>(
+          create: (context) => ChatBloc(),
         ),
       ],
       child: MaterialApp(
@@ -37,3 +41,4 @@ class MainApp extends StatelessWidget {
     );
   }
 }
+

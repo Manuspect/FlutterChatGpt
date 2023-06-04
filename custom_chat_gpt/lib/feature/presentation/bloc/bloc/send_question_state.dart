@@ -1,18 +1,18 @@
-part of 'send_question_bloc.dart';
+// part of 'send_question_bloc.dart';
 
-abstract class SendQuestionState extends Equatable {
-  final List<String> chatStory = [];
-  SendQuestionState();
-  
-  @override
-  List<Object> get props => [chatStory];
-}
+// abstract class SendQuestionState extends Equatable {
+//   final List<String> chatStory = [];
+//   SendQuestionState();
 
-class QuestionAdd extends SendQuestionState {
-  final List<String> chatStory;
-  QuestionAdd({required this.chatStory});
-}
+//   @override
+//   List<Object> get props => [chatStory];
+// }
 
-class AIResponding extends SendQuestionState {
+// class ChatInited extends SendQuestionState {}
 
-}
+// class QuestionAdd extends SendQuestionState {
+//   final String message;
+//   QuestionAdd({required this.message});
+// }
+
+// class AIResponding extends SendQuestionState {}

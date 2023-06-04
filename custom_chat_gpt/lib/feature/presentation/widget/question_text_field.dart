@@ -1,4 +1,4 @@
-import 'package:custom_chat_gpt/feature/presentation/bloc/bloc/send_question_bloc.dart';
+import 'package:custom_chat_gpt/feature/presentation/bloc/test_bloc/chat_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,7 +15,15 @@ class QuestionTextField extends StatelessWidget {
         suffixIcon: IconButton(
           icon: const Icon(Icons.send),
           onPressed: () {
-            context.read<SendQuestionBloc>().add(SendButtonPressed(_controller.text));
+            // BlocProvider.of<ChatBloc>(context).add(
+            //   SendMessage(message: _controller.text),
+            // );
+            BlocProvider.of<ChatBloc>(context).add(
+              SendChatMessage(message: _controller.text),
+            );
+
+
+
             // BlocProvider.of<SendQuestionBloc>(context).add(SendButtonPressed(_controller.text));
             _controller.clear();
           },

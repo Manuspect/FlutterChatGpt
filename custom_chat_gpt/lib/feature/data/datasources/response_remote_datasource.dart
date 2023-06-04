@@ -7,13 +7,15 @@ abstract class ResponseRemoteDatasource {
 }
 class ResponseRemoteDatasourceImpl implements ResponseRemoteDatasource {
   final WebSocketChannel _channel;
+  @override
   WebSocketChannel get channel => _channel;
   
   ResponseRemoteDatasourceImpl(this._channel);
   //  = WebSocketChannel.connect(Uri.parse('wss://echo.websocket.events'),);
+  
   @override
   Stream aiResponseStream() async*{
-    yield _channel.stream; 
+    yield* _channel.stream; 
   }
 
 }

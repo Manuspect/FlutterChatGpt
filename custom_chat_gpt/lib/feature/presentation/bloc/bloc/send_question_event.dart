@@ -1,13 +1,8 @@
-part of 'send_question_bloc.dart';
+// part of 'send_question_bloc.dart';
 
-abstract class SendQuestionEvent extends Equatable {
-  final String message;
-  const SendQuestionEvent(this.message);
+// abstract class SendQuestionEvent {}
 
-  @override
-  List<Object> get props => [message];
-}
-
-class SendButtonPressed extends SendQuestionEvent {
-  const SendButtonPressed(super.message);
-}
+// class SendButtonPressed extends SendQuestionEvent {
+//   final String message;
+//   SendButtonPressed({required this.message});
+// }
