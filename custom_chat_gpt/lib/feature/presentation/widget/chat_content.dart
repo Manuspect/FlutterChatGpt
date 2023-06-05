@@ -38,7 +38,7 @@ class _ChatContentState extends State<ChatContent> {
       },
       builder: (context, state) {
         return Container(
-          height: 600,
+          // height: 600,
           child: chats.isNotEmpty
               ? SingleChildScrollView(
                 child: Column(
@@ -47,8 +47,7 @@ class _ChatContentState extends State<ChatContent> {
                       chatMessages(),
                       Builder(
                         builder: (context) {
-                          
-                          return AIStreamCard();
+                          return state is! ResponseGot ? AIStreamCard() : Container();
                         }
                       ),
                       const SizedBox(
