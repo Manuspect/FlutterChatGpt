@@ -20,7 +20,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     on<SendChatMessage>(
       (event, emit) {
         ChatMessage chatMessage =
-            ChatMessage(role: 'User', content: event.message);
+            ChatMessage(role: 'user', content: event.message);
         repository.sendChatMessage(chatMessage, repository.getHistory);
         emit(
           MessageSended(message: event.message),
@@ -35,12 +35,13 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     on<GotResponse>(
       (event, emit) {
         repository.history.add(ChatMessage(
-            role: 'Assistant', content: event.message ?? 'No response'));
+            role: 'assistant', content: event.message ?? 'No response'));
         print('history from bloc');
         print(repository.getHistory);
         // repository.getHistory.forEach((element) {
         //   print(element.toJson());
         // });
+        repository.remoteDatasource.channel.sink.close();
         emit(ResponseGot(message: event.message ?? 'No response'));
       },
     );

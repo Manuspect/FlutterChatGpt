@@ -8,11 +8,11 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 class RepositoryImpl implements Repository {
   ResponseRemoteDatasource remoteDatasource = ResponseRemoteDatasourceImpl(
-    WebSocketChannel.connect(
-      // Uri.parse('ws://95.165.88.39:80/ws'),
-      Uri.parse('wss://echo.websocket.events'),
-    ),
-  );
+      // WebSocketChannel.connect(
+      //   Uri.parse('ws://95.165.88.39:80/ws'),
+      //   // Uri.parse('wss://echo.websocket.events'),
+      // ),
+      );
 
   List<ChatMessage> history = [];
 
@@ -30,17 +30,25 @@ class RepositoryImpl implements Repository {
 
   @override
   void sendChatMessage(ChatMessage chatMessage, List<ChatMessage> history) {
+    remoteDatasource.initWebSocket(
+      WebSocketChannel.connect(
+        Uri.parse('ws://95.165.88.39:80/ws'),
+        // Uri.parse('wss://echo.websocket.events'),
+      ),
+    );
     // messageToSend = MessageToSend(chatMessage: chatMessage, history: history).toJson();
-    String messageToSend = json.encode(MessageToSend(chatMessage: chatMessage, history: history).toJson());
+    String messageToSend = json.encode(
+        MessageToSend(chatMessage: chatMessage, history: history).toJson());
     print('messageToSend in sendChatMessage${messageToSend}');
     remoteDatasource.channel.sink.add(messageToSend);
     history.add(chatMessage);
   }
-  
+
   @override
   Stream<List<ChatMessage>> getChats() async* {
     yield history;
   }
+
   @override
   List<ChatMessage> get getHistory => history;
 }

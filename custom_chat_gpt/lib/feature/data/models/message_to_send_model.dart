@@ -4,51 +4,72 @@
 
 import 'dart:convert';
 
-MessageToSend messageToSendFromJson(String str) => MessageToSend.fromJson(json.decode(str));
+MessageToSend messageToSendFromJson(String str) =>
+    MessageToSend.fromJson(json.decode(str));
 
 String messageToSendToJson(MessageToSend data) => json.encode(data.toJson());
 
 class MessageToSend {
-    final ChatMessage chatMessage;
-    final List<ChatMessage> history;
+  final ChatMessage chatMessage;
+  final List<ChatMessage> history;
 
-    MessageToSend({
-        required this.chatMessage,
-        required this.history,
-    });
+  MessageToSend({
+    required this.chatMessage,
+    required this.history,
+  });
 
-    factory MessageToSend.fromJson(Map<String, dynamic> json) => MessageToSend(
-        chatMessage: ChatMessage.fromJson(json["chat_message"]),
-        history: List<ChatMessage>.from(json["history"].map((x) => ChatMessage.fromJson(x))),
-    );
+  factory MessageToSend.fromJson(Map<String, dynamic> json) => MessageToSend(
+        chatMessage: ChatMessage.fromJson(json["new_message"]),
+        history: List<ChatMessage>.from(
+            json["history"].map((x) => ChatMessage.fromJson(x))),
+      );
 
-    Map<String, dynamic> toJson() => {
-        "chat_message": chatMessage.toJson(),
+  Map<String, dynamic> toJson() => {
+        "new_message": chatMessage.toJson(),
         "history": List<dynamic>.from(history.map((x) => x.toJson())),
-    };
+      };
 }
+// class MessageToSend {
+//     final String chatMessage;
+//     final List<ChatMessage> history;
+
+//     MessageToSend({
+//         required this.chatMessage,
+//         required this.history,
+//     });
+
+//     factory MessageToSend.fromJson(Map<String, dynamic> json) => MessageToSend(
+//         chatMessage: json["new_message"],
+//         history: List<ChatMessage>.from(json["history"].map((x) => ChatMessage.fromJson(x))),
+//     );
+
+//     Map<String, dynamic> toJson() => {
+//         "new_message": chatMessage,
+//         "history": List<dynamic>.from(history.map((x) => x.toJson())),
+//     };
+// }
 
 class ChatMessage {
-    final String role;
-    final String content;
+  final String role;
+  final String content;
 
-    ChatMessage({
-        required this.role,
-        required this.content,
-    });
+  ChatMessage({
+    required this.role,
+    required this.content,
+  });
 
-    factory ChatMessage.fromJson(Map<String, dynamic> json) => ChatMessage(
+  factory ChatMessage.fromJson(Map<String, dynamic> json) => ChatMessage(
         role: json["role"],
         content: json["content"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "role": role,
         "content": content,
-    };
+      };
 
-    @override
-    String toString() {
+  @override
+  String toString() {
     // TODO: implement toString
     return '{role: $role, content: $content}';
   }
