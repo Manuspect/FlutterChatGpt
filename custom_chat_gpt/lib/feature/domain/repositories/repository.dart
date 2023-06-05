@@ -7,4 +7,7 @@ abstract class Repository {
   void sendChatMessage(ChatMessage chatMessage, List<ChatMessage> history);
   Stream<List<ChatMessage>> getChats();
   List<ChatMessage> get getHistory;
+  void regenerate();
+  void addToHistory(ChatMessage chatMessage);
+  void saveResponse(String msg);
 }
