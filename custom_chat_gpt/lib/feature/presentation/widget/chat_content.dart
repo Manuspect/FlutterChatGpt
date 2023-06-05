@@ -1,11 +1,8 @@
-// import 'package:custom_chat_gpt/feature/data/datasources/response_remote_datasource.dart';
 import 'package:custom_chat_gpt/feature/data/models/message_to_send_model.dart';
 import 'package:custom_chat_gpt/feature/data/repositories/repository_impl.dart';
-// import 'package:custom_chat_gpt/feature/domain/repositories/repository.dart';
 import 'package:custom_chat_gpt/feature/presentation/bloc/test_bloc/chat_bloc.dart';
-import 'package:custom_chat_gpt/feature/presentation/widget/ai_response_card.dart';
 import 'package:custom_chat_gpt/feature/presentation/widget/ai_stream_card.dart';
-import 'package:custom_chat_gpt/feature/presentation/widget/user_question_card.dart';
+import 'package:custom_chat_gpt/feature/presentation/widget/chat_message.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +21,6 @@ class _ChatContentState extends State<ChatContent> {
 
   @override
   void initState() {
-    
     chats = BlocProvider.of<ChatBloc>(context).repository.getHistory;
 
     super.initState();
@@ -41,21 +37,21 @@ class _ChatContentState extends State<ChatContent> {
           // height: 600,
           child: chats.isNotEmpty
               ? SingleChildScrollView(
-                child: Column(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       chatMessages(),
-                      Builder(
-                        builder: (context) {
-                          return state is! ResponseGot ? const AIStreamCard() : Container();
-                        }
-                      ),
+                      Builder(builder: (context) {
+                        return state is! ResponseGot
+                            ? const AIStreamCard()
+                            : Container();
+                      }),
                       const SizedBox(
                         height: 150,
                       )
                     ],
                   ),
-              )
+                )
               : const Center(
                   child: Text('Задайте вопрос'),
                 ),
@@ -84,22 +80,11 @@ class _ChatContentState extends State<ChatContent> {
                 child: Column(
                   children: [
                     ...chats
-                        .map(
-                            (e) => e.role == 'user'
-                                ? UserQuestionCard(
-                                    message: e.content,
-                                  )
-                                : AIResponseCard(
-                                    message: e.content,
-                                  ),
-                          )
-                          .toList(),
-                    ],
-                )
-
-                ),
+                        .map((e) => ChatMessageCard(chatMessage: e))
+                        .toList(),
+                  ],
+                )),
           )
         : const CircularProgressIndicator();
   }
 }
-

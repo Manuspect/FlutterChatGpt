@@ -1,9 +1,9 @@
+import 'package:custom_chat_gpt/feature/data/models/message_to_send_model.dart';
 import 'package:custom_chat_gpt/feature/presentation/bloc/test_bloc/chat_bloc.dart';
+import 'package:custom_chat_gpt/feature/presentation/widget/chat_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
-
-import 'ai_response_card.dart';
 
 class AIStreamCard extends StatefulWidget {
   const AIStreamCard({super.key});
@@ -33,6 +33,6 @@ class _AIStreamCardState extends State<AIStreamCard> {
 
   @override
   Widget build(BuildContext context) {
-    return AIResponseCard(message: res);
+    return ChatMessageCard(chatMessage: ChatMessage(role: Role.assistant, content: res));
   }
 }

@@ -29,28 +29,15 @@ class MessageToSend {
         "history": List<dynamic>.from(history.map((x) => x.toJson())),
       };
 }
-// class MessageToSend {
-//     final String chatMessage;
-//     final List<ChatMessage> history;
 
-//     MessageToSend({
-//         required this.chatMessage,
-//         required this.history,
-//     });
-
-//     factory MessageToSend.fromJson(Map<String, dynamic> json) => MessageToSend(
-//         chatMessage: json["new_message"],
-//         history: List<ChatMessage>.from(json["history"].map((x) => ChatMessage.fromJson(x))),
-//     );
-
-//     Map<String, dynamic> toJson() => {
-//         "new_message": chatMessage,
-//         "history": List<dynamic>.from(history.map((x) => x.toJson())),
-//     };
-// }
+enum Role {
+  system,
+  user,
+  assistant
+}
 
 class ChatMessage {
-  final String role;
+  final Role role;
   final String content;
 
   ChatMessage({
@@ -59,18 +46,17 @@ class ChatMessage {
   });
 
   factory ChatMessage.fromJson(Map<String, dynamic> json) => ChatMessage(
-        role: json["role"],
+        role: Role.values.byName(json["role"]),
         content: json["content"],
       );
 
   Map<String, dynamic> toJson() => {
-        "role": role,
+        "role": role.name,
         "content": content,
       };
 
   @override
   String toString() {
-    // TODO: implement toString
-    return '{role: $role, content: $content}';
+    return '{role: ${role.name}, content: $content}';
   }
 }

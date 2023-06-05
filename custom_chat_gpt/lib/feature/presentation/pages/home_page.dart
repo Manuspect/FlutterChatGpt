@@ -15,9 +15,9 @@ class HomePage extends StatelessWidget {
                 backgroundColor: AppColors.mainBackground,
                 appBar: AppBar(),
                 drawer: const SizedBox(
-                  width: 300,
+                  width: 350,
                   child: Drawer(
-                    child: DrawerContent(),
+                    child: SafeArea(child: DrawerContent()),
                   ),
                 ),
                 body: Container(
@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
                 body: Row(
                   children: [
                     SizedBox(
-                      width: 300,
+                      width: 350,
                       child: DrawerContent(),
                     ),
                     Expanded(
