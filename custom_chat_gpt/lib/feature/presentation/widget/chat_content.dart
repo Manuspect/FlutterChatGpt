@@ -47,7 +47,7 @@ class _ChatContentState extends State<ChatContent> {
                       chatMessages(),
                       Builder(
                         builder: (context) {
-                          return state is! ResponseGot ? AIStreamCard() : Container();
+                          return state is! ResponseGot ? const AIStreamCard() : Container();
                         }
                       ),
                       const SizedBox(
@@ -79,7 +79,7 @@ class _ChatContentState extends State<ChatContent> {
                 PointerDeviceKind.mouse,
               },
             ),
-            child: Container(
+            child: SizedBox(
                 width: 768,
                 child: Column(
                   children: [

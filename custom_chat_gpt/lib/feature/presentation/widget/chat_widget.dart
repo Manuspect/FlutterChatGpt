@@ -10,7 +10,10 @@ class ChatWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Stack(
       children: [
-        Center(child: ChatContent()),
+        Align(
+          alignment: Alignment.topCenter,
+          child: ChatContent()
+        ),
         Align(
           alignment: Alignment.bottomCenter,
           child: BottomPanel(),

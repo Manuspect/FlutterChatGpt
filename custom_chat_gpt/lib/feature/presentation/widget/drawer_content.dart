@@ -46,7 +46,7 @@ class _DrawerContentState extends State<DrawerContent> {
                       (e) => ListTile(
                         leading: const Icon(Icons.message_rounded),
                         title: Text(e),
-                        trailing: Container(
+                        trailing: SizedBox(
                           width: 120,
                           child: Row(
                             // mainAxisSize: MainAxisSize.max,

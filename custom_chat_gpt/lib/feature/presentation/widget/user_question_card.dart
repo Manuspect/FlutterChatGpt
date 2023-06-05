@@ -17,10 +17,10 @@ class UserQuestionCard extends StatelessWidget {
       ),
       width: 768,
       child: ListTile(
-        leading: Icon(Icons.person),
+        leading: const Icon(Icons.person),
         title: Text(
           message,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 16,
             // height: 24,
           ),

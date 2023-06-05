@@ -20,7 +20,7 @@ class AIResponseCard extends StatelessWidget {
         leading: Image.asset('assets/images/ai_logo.png'),
         title: Text(
           message,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 16,
             // height: 24,
           ),

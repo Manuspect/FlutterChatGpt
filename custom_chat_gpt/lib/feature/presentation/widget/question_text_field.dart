@@ -31,7 +31,7 @@ class QuestionTextField extends StatelessWidget {
         suffixIconConstraints: const BoxConstraints(minWidth: 60),
         suffixIconColor: AppColors.iconBlueColor,
         focusColor: AppColors.inputFieldBackground,
-        label: Text('Send a message'),
+        label: const Text('Send a message'),
         floatingLabelBehavior: FloatingLabelBehavior.never,
         fillColor: AppColors.inputFieldBackground,
         enabledBorder: OutlineInputBorder(
