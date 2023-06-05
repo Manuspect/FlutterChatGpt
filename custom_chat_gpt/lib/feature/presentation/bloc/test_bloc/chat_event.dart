@@ -23,3 +23,8 @@ class GotResponse extends ChatEvent {
 
   GotResponse({required this.message});
 }
+
+
+class RegenerateButtonPressed extends ChatEvent {
+  
+}

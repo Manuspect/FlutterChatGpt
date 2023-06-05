@@ -10,14 +10,14 @@ class MessageSended extends ChatState {
   MessageSended({required this.message});
 }
 class ResponseGot extends ChatState {
-  final String message;
-
-  ResponseGot({required this.message});
 }
 
 class ResponseIsGetting extends ChatState {
   final String message;
 
   ResponseIsGetting({required this.message});
+}
+class Regenerating extends ChatState {
+
 }
 

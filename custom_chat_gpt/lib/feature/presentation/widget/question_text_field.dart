@@ -11,21 +11,20 @@ class QuestionTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: _controller,
+      // expands: true,
+      autofocus: true,
       decoration: InputDecoration(
         suffixIcon: IconButton(
           icon: const Icon(Icons.send),
           onPressed: () {
-            // BlocProvider.of<ChatBloc>(context).add(
-            //   SendMessage(message: _controller.text),
-            // );
-            BlocProvider.of<ChatBloc>(context).add(
-              SendChatMessage(message: _controller.text),
-            );
 
-
-
-            // BlocProvider.of<SendQuestionBloc>(context).add(SendButtonPressed(_controller.text));
-            _controller.clear();
+            if (_controller.text.isNotEmpty) {
+              BlocProvider.of<ChatBloc>(context).add(
+                SendChatMessage(message: _controller.text),
+              );
+          
+              _controller.clear();
+            }
           },
         ),
         suffixIconConstraints: const BoxConstraints(minWidth: 60),
@@ -33,7 +32,7 @@ class QuestionTextField extends StatelessWidget {
         focusColor: AppColors.inputFieldBackground,
         label: const Text('Send a message'),
         floatingLabelBehavior: FloatingLabelBehavior.never,
-        fillColor: AppColors.inputFieldBackground,
+        fillColor: Colors.white,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
           borderSide: const BorderSide(

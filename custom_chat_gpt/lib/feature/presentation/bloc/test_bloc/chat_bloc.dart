@@ -7,16 +7,16 @@ part 'chat_state.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
   RepositoryImpl repository = RepositoryImpl();
-  
+
   ChatBloc() : super(ChatInited()) {
-    on<SendMessage>(
-      (event, emit) {
-        repository.sendMessage(event.message);
-        emit(
-          MessageSended(message: event.message),
-        );
-      },
-    );
+    // on<SendMessage>(
+    //   (event, emit) {
+    //     repository.sendMessage(event.message);
+    //     emit(
+    //       MessageSended(message: event.message),
+    //     );
+    //   },
+    // );
 
     on<SendChatMessage>(
       (event, emit) {
@@ -29,20 +29,31 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       },
     );
 
-    on<GetResponse>(
-      (event, emit) {
-        return;
-      },
-    );
+    // on<GetResponse>(
+    //   (event, emit) {
+    //     return;
+    //   },
+    // );
 
     on<GotResponse>(
       (event, emit) {
-        repository.history.add(ChatMessage(
-            role: Role.assistant, content: event.message ?? 'No response'));
-        // print('history from bloc');
-        // print(repository.getHistory);
-        repository.remoteDatasource.channel.sink.close();
-        emit(ResponseGot(message: event.message ?? 'No response'));
+        repository.saveResponse(event.message!);
+        print('in GotResponse');
+        // repository.addToHistory(ChatMessage(
+        //     role: Role.assistant, content: event.message ?? 'No response'));
+        // // print('history from bloc');
+        // // print(repository.getHistory);
+        // repository.remoteDatasource.channel.sink.close();
+        emit(ResponseGot());
+      },
+    );
+
+    on<RegenerateButtonPressed>(
+      (event, emit) {
+        print('In event');
+        repository.regenerate();
+        emit(Regenerating());
+
       },
     );
   }
