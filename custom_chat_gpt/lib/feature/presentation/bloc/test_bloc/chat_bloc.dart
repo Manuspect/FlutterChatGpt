@@ -7,7 +7,7 @@ part 'chat_state.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
   RepositoryImpl repository = RepositoryImpl();
-
+  int index = 0;
   ChatBloc() : super(ChatInited()) {
     // on<SendMessage>(
     //   (event, emit) {
@@ -22,7 +22,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       (event, emit) {
         ChatMessage chatMessage =
             ChatMessage(role: Role.user, content: event.message);
-        repository.sendChatMessage(chatMessage, repository.getHistory);
+        repository.sendChatMessage(chatMessage, repository.history);
         emit(
           MessageSended(message: event.message),
         );
@@ -38,22 +38,30 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     on<GotResponse>(
       (event, emit) {
         repository.saveResponse(event.message!);
-        print('in GotResponse');
-        // repository.addToHistory(ChatMessage(
-        //     role: Role.assistant, content: event.message ?? 'No response'));
-        // // print('history from bloc');
-        // // print(repository.getHistory);
-        // repository.remoteDatasource.channel.sink.close();
+        // print('in GotResponse');
         emit(ResponseGot());
       },
     );
 
     on<RegenerateButtonPressed>(
       (event, emit) {
-        print('In event');
+        // print('In event');
         repository.regenerate();
         emit(Regenerating());
+      },
+    );
 
+    on<AddNewChat>((event, emit) {
+      repository.addNewChat('New chat $index');
+      index++;
+      // print(repository.chats.keys.toList());
+      emit(NewChatAdded());
+    });
+
+    on<ChatChanged>(
+      (event, emit) {
+        repository.loadChat(event.message);
+        emit(ChatChangedState());
       },
     );
   }

@@ -21,3 +21,10 @@ class Regenerating extends ChatState {
 
 }
 
+class NewChatAdded extends ChatState {
+  
+}
+class ChatChangedState extends ChatState {
+  
+}
+

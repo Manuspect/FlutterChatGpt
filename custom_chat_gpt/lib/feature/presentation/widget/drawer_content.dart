@@ -1,5 +1,8 @@
 import 'package:custom_chat_gpt/common/app_colors.dart';
+import 'package:custom_chat_gpt/feature/presentation/bloc/test_bloc/chat_bloc.dart';
+import 'package:custom_chat_gpt/feature/presentation/widget/list_of_chats.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DrawerContent extends StatefulWidget {
   const DrawerContent({super.key});
@@ -23,8 +26,11 @@ class _DrawerContentState extends State<DrawerContent> {
                 ),
               ),
             ),
+            // Add new chat buttom
             child: ListTile(
-              onTap: () {},
+              onTap: () {
+                BlocProvider.of<ChatBloc>(context).add(AddNewChat());
+              },
               leading: const Icon(
                 Icons.add,
                 color: AppColors.iconBlueColor,
@@ -38,49 +44,67 @@ class _DrawerContentState extends State<DrawerContent> {
             ),
           ),
           Expanded(
-            flex: 6,
-            child: ListView(
-              children: [
-                ...testChatNames
-                    .map(
-                      (e) => ListTile(
-                        leading: const Icon(Icons.message_rounded),
-                        title: Text(e),
-                        trailing: SizedBox(
-                          width: 120,
-                          child: Row(
-                            // mainAxisSize: MainAxisSize.max,
-                            children: [
-                              IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.file_upload_outlined,
-                                  color: AppColors.iconBlueColor,
-                                ),
-                              ),
-                              IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.edit_outlined,
-                                  color: AppColors.iconBlueColor,
-                                ),
-                              ),
-                              IconButton(
-                                onPressed: () {},
-                                icon: const Icon(
-                                  Icons.delete_outline,
-                                  color: AppColors.iconRedColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    )
-                    .toList()
-              ],
-            ),
-          ),
+              flex: 6,
+
+              // TODO: BUG: При добавлении нового чата, актуальный чат пропадает
+              child: BlocBuilder<ChatBloc, ChatState>(
+                builder: (context, state) {
+                  // print(BlocProvider.of<ChatBloc>(context)
+                  //     .repository
+                  //     .chats
+                  //     .keys
+                  //     .toList());
+                  return ListOfChats(
+                      chatNames: BlocProvider.of<ChatBloc>(context)
+                          .repository
+                          .chats
+                          .keys
+                          .toList());
+                },
+              )
+
+              // ListView(
+              //   children: [
+              //     ...testChatNames
+              //         .map(
+              //           (e) => ListTile(
+              //             leading: const Icon(Icons.message_rounded),
+              //             title: Text(e),
+              //             trailing: SizedBox(
+              //               width: 120,
+              //               child: Row(
+              //                 // mainAxisSize: MainAxisSize.max,
+              //                 children: [
+              //                   IconButton(
+              //                     onPressed: () {},
+              //                     icon: const Icon(
+              //                       Icons.file_upload_outlined,
+              //                       color: AppColors.iconBlueColor,
+              //                     ),
+              //                   ),
+              //                   IconButton(
+              //                     onPressed: () {},
+              //                     icon: const Icon(
+              //                       Icons.edit_outlined,
+              //                       color: AppColors.iconBlueColor,
+              //                     ),
+              //                   ),
+              //                   IconButton(
+              //                     onPressed: () {},
+              //                     icon: const Icon(
+              //                       Icons.delete_outline,
+              //                       color: AppColors.iconRedColor,
+              //                     ),
+              //                   ),
+              //                 ],
+              //               ),
+              //             ),
+              //           ),
+              //         )
+              //         .toList()
+              //   ],
+              // ),
+              ),
           Column(
             children: [
               Container(
@@ -128,32 +152,32 @@ class _DrawerContentState extends State<DrawerContent> {
   }
 }
 
-List<String> testChatNames = [
-  'Chat theme 1',
-  'Chat theme 2',
-  'Chat theme 3',
-  'Chat theme 1',
-  'Chat theme 2',
-  'Chat theme 3',
-  'Chat theme 1',
-  'Chat theme 2',
-  'Chat theme 3',
-  'Chat theme 1',
-  'Chat theme 2',
-  'Chat theme 3',
-  'Chat theme 1',
-  'Chat theme 2',
-  'Chat theme 3',
-  'Chat theme 1',
-  'Chat theme 2',
-  'Chat theme 3',
-  'Chat theme 1',
-  'Chat theme 2',
-  'Chat theme 3',
-  'Chat theme 1',
-  'Chat theme 2',
-  'Chat theme 3',
-  'Chat theme 1',
-  'Chat theme 2',
-  'Chat theme 3',
-];
+// List<String> testChatNames = [
+//   'Chat theme 1',
+//   'Chat theme 2',
+//   'Chat theme 3',
+//   'Chat theme 1',
+//   'Chat theme 2',
+//   'Chat theme 3',
+//   'Chat theme 1',
+//   'Chat theme 2',
+//   'Chat theme 3',
+//   'Chat theme 1',
+//   'Chat theme 2',
+//   'Chat theme 3',
+//   'Chat theme 1',
+//   'Chat theme 2',
+//   'Chat theme 3',
+//   'Chat theme 1',
+//   'Chat theme 2',
+//   'Chat theme 3',
+//   'Chat theme 1',
+//   'Chat theme 2',
+//   'Chat theme 3',
+//   'Chat theme 1',
+//   'Chat theme 2',
+//   'Chat theme 3',
+//   'Chat theme 1',
+//   'Chat theme 2',
+//   'Chat theme 3',
+// ];

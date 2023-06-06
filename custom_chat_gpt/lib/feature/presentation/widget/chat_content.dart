@@ -18,10 +18,11 @@ class _ChatContentState extends State<ChatContent> {
   RepositoryImpl repository = RepositoryImpl();
   late Stream stream;
   late List<ChatMessage> chats;
-
+  late ScrollController scrollController;
   @override
   void initState() {
-    chats = BlocProvider.of<ChatBloc>(context).repository.getHistory;
+    scrollController = ScrollController();
+    chats = BlocProvider.of<ChatBloc>(context).repository.history;
 
     super.initState();
   }
@@ -30,6 +31,7 @@ class _ChatContentState extends State<ChatContent> {
   Widget build(BuildContext context) {
     return BlocBuilder<ChatBloc, ChatState>(
       buildWhen: (previous, current) {
+        // if (current is ResponseGot) return true;
         return true;
       },
       builder: (context, state) {
@@ -37,11 +39,23 @@ class _ChatContentState extends State<ChatContent> {
           // height: 600,
           child: chats.isNotEmpty
               ? SingleChildScrollView(
+                reverse: true,
+                  controller: scrollController,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       chatMessages(),
                       Builder(builder: (context) {
+                        // print(state);
+
+                        //TODO: Сделать ScrollView привязанным к низу при появлении нового элемента
+
+                        scrollController.animateTo(
+                          0.0,
+                          curve: Curves.easeOut,
+                          duration: const Duration(milliseconds: 300),
+                        );
+
                         return state is! ResponseGot
                             ? const AIStreamCard()
                             : Container();

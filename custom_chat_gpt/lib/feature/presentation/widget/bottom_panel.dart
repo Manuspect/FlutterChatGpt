@@ -1,6 +1,6 @@
-import 'package:custom_chat_gpt/feature/presentation/bloc/test_bloc/chat_bloc.dart';
+// import 'package:custom_chat_gpt/feature/presentation/bloc/test_bloc/chat_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
 
 // import '../../../common/app_colors.dart';
 import 'question_text_field.dart';
@@ -22,14 +22,18 @@ class BottomPanel extends StatelessWidget {
           return Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
+
+              //TODO: сделать кнопку безопасной
+              
               // BlocBuilder<ChatBloc, ChatState>(
               //   builder: (context, state) {
+              //     print(state);
               //     return state is ResponseGot
               //         ? RegenerateButton()
               //         : Container();
               //   },
               // ),
-              RegenerateButton(),
+              const RegenerateButton(),
               Padding(
                 padding: const EdgeInsets.only(
                     bottom: 30, top: 8, left: 8, right: 8),

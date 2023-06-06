@@ -26,5 +26,13 @@ class GotResponse extends ChatEvent {
 
 
 class RegenerateButtonPressed extends ChatEvent {
-  
+
+}
+
+class AddNewChat extends ChatEvent {}
+class ChatChanged extends ChatEvent {
+  final String message;
+
+  ChatChanged({required this.message});
+
 }

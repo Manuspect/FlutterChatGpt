@@ -21,11 +21,7 @@ class RegenerateButton extends StatelessWidget {
       ),
       child: GestureDetector(
         onTap: () {
-          print('Gesture detector');
-          // Удалить последний элемент из истории
-          // Последний элемент (от user) поместить в сообщение
-          // Удалить последний элемент из истории
-          // Отправить
+
           BlocProvider.of<ChatBloc>(context).add(RegenerateButtonPressed());
 
         },

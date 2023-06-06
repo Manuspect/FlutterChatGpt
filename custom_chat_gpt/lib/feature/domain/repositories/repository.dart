@@ -5,9 +5,13 @@ abstract class Repository {
     
   void sendMessage(String msg);
   void sendChatMessage(ChatMessage chatMessage, List<ChatMessage> history);
-  Stream<List<ChatMessage>> getChats();
-  List<ChatMessage> get getHistory;
+
+  List<ChatMessage> get history;
+  Map<String, List<ChatMessage>> get chats;
+  
   void regenerate();
   void addToHistory(ChatMessage chatMessage);
   void saveResponse(String msg);
+  void addNewChat(String chatName);
+  void loadChat(String chatName);
 }
