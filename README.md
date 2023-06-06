@@ -52,7 +52,7 @@ OpenAI API Relay server for [ChatGPT AI flutter App](https://github.com/Sakhnevi
 
 ## Запуск сервера
 
->cargo run
+>flutter run
 
 ## Ссылки
 
