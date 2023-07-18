@@ -1,5 +1,7 @@
 import 'package:custom_chat_gpt/common/app_colors.dart';
+import 'package:custom_chat_gpt/core/constants/images.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../data/models/message_to_send_model.dart';
 
@@ -15,15 +17,19 @@ class ChatMessageCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: chatMessage.role == Role.assistant
-            ? AppColors.cellBackground
-            : AppColors.mainBackground,
+        color: chatMessage.role == Role.assistant ? AppColors.cellBackground : AppColors.mainBackground,
       ),
       width: 768,
       child: ListTile(
         leading: chatMessage.role == Role.assistant
-            ? Image.asset('assets/images/ai_logo.png')
-            : const Icon(Icons.person),
+            ? Image.asset(
+                Images.ai,
+                height: 25,
+                width: 25,
+              )
+            : SvgPicture.asset(
+                Images.me,
+              ),
         title: Text(
           chatMessage.content,
           style: const TextStyle(
