@@ -1,5 +1,6 @@
 // import 'package:custom_chat_gpt/feature/presentation/bloc/test_bloc/chat_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../common/app_colors.dart';
@@ -42,7 +43,7 @@ class _ListOfChatsState extends State<ListOfChats> {
                       leading: const Icon(Icons.message_rounded),
                       title: Text(e),
                       trailing: SizedBox(
-                        width: 120,
+                        width: 150.w,
                         child: Row(
                           // mainAxisSize: MainAxisSize.max,
                           children: [

@@ -20,7 +20,9 @@ class ResponseIsGetting extends ChatState {
 class Regenerating extends ChatState {
 
 }
-
+class UpdateChatState extends ChatState {
+  
+}
 class NewChatAdded extends ChatState {
   
 }

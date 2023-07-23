@@ -4,8 +4,7 @@
 
 import 'dart:convert';
 
-MessageToSend messageToSendFromJson(String str) =>
-    MessageToSend.fromJson(json.decode(str));
+MessageToSend messageToSendFromJson(String str) => MessageToSend.fromJson(json.decode(str));
 
 String messageToSendToJson(MessageToSend data) => json.encode(data.toJson());
 
@@ -20,8 +19,7 @@ class MessageToSend {
 
   factory MessageToSend.fromJson(Map<String, dynamic> json) => MessageToSend(
         chatMessage: ChatMessage.fromJson(json["new_message"]),
-        history: List<ChatMessage>.from(
-            json["history"].map((x) => ChatMessage.fromJson(x))),
+        history: List<ChatMessage>.from(json["history"].map((x) => ChatMessage.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -30,20 +28,14 @@ class MessageToSend {
       };
 }
 
-enum Role {
-  system,
-  user,
-  assistant
-}
+enum Role { system, user, assistant }
 
 class ChatMessage {
   final Role role;
   final String content;
+  bool isSelected;
 
-  ChatMessage({
-    required this.role,
-    required this.content,
-  });
+  ChatMessage({required this.role, required this.content, this.isSelected = false});
 
   factory ChatMessage.fromJson(Map<String, dynamic> json) => ChatMessage(
         role: Role.values.byName(json["role"]),

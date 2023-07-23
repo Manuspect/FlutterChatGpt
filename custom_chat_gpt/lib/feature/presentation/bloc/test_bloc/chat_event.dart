@@ -7,6 +7,7 @@ class SendMessage extends ChatEvent {
 
   SendMessage({required this.message});
 }
+
 class SendChatMessage extends ChatEvent {
   final String message;
 
@@ -18,21 +19,21 @@ class GetResponse extends ChatEvent {
 
   GetResponse({required this.message});
 }
+
+class UpdateChatEvent extends ChatEvent {}
+
 class GotResponse extends ChatEvent {
   final String? message;
 
   GotResponse({required this.message});
 }
 
-
-class RegenerateButtonPressed extends ChatEvent {
-
-}
+class RegenerateButtonPressed extends ChatEvent {}
 
 class AddNewChat extends ChatEvent {}
+
 class ChatChanged extends ChatEvent {
   final String message;
 
   ChatChanged({required this.message});
-
 }

@@ -17,11 +17,11 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     //     );
     //   },
     // );
+    on<UpdateChatEvent>(_updateChat);
 
     on<SendChatMessage>(
       (event, emit) {
-        ChatMessage chatMessage =
-            ChatMessage(role: Role.user, content: event.message);
+        ChatMessage chatMessage = ChatMessage(role: Role.user, content: event.message);
         repository.sendChatMessage(chatMessage, repository.history);
         emit(
           MessageSended(message: event.message),
@@ -64,5 +64,9 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         emit(ChatChangedState());
       },
     );
+  }
+
+  void _updateChat(UpdateChatEvent event, Emitter<ChatState> emit) async {
+    emit(UpdateChatState());
   }
 }

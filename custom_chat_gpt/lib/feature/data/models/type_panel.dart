@@ -1,0 +1,1 @@
+enum TypePanel { mainPanel, secondPanel, editPanel}
