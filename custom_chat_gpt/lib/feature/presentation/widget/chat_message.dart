@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:custom_chat_gpt/common/app_colors.dart';
 import 'package:custom_chat_gpt/core/constants/images.dart';
 import 'package:custom_chat_gpt/feature/presentation/bloc/test_bloc/chat_bloc.dart';
+import 'package:custom_chat_gpt/feature/presentation/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,12 +27,17 @@ class _ChatMessageCardState extends State<ChatMessageCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        
         setState(() {
           if (widget.chatMessage.isSelected) {
             widget.chatMessage.isSelected = false;
           } else {
+            for (var element in chats) {
+              element.isSelected = false;
+            }
             widget.chatMessage.isSelected = true;
           }
+          log(widget.chatMessage.isSelected.toString());
         });
         BlocProvider.of<ChatBloc>(context).add(UpdateChatEvent());
       },
@@ -38,7 +46,7 @@ class _ChatMessageCardState extends State<ChatMessageCard> {
             borderRadius: BorderRadius.circular(16),
             color: widget.chatMessage.role == Role.assistant ? AppColors.cellBackground : AppColors.mainBackground,
             border: widget.chatMessage.isSelected ? Border.all(color: AppColors.iconBlueColor) : Border.all()),
-        width: 768,
+        width: 768.w,
         child: Column(
           children: [
             ListTile(

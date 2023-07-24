@@ -93,8 +93,8 @@ class _ChatContentState extends State<ChatContent> {
                 width: 768,
                 child: Column(
                   children: [
-                    ...chats
-                        .map((e) => ChatMessageCard(chatMessage: e))
+                    ...chats.where((element) => element.role != Role.assistant)
+                        .map((e) =>  ChatMessageCard(chatMessage: e,))
                         .toList(),
                   ],
                 )),

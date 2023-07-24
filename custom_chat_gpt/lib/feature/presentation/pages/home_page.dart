@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:custom_chat_gpt/common/app_colors.dart';
 import 'package:custom_chat_gpt/core/constants/images.dart';
@@ -12,6 +11,7 @@ import 'package:custom_chat_gpt/feature/presentation/widget/sliding_panel.dart';
 import 'package:custom_chat_gpt/feature/presentation/widget/widget_position.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -24,7 +24,7 @@ class HomePage extends StatefulWidget {
 
 late List<ChatMessage> chats;
 GlobalKey iconBtn = GlobalKey();
-late List<ChatMessage> chatsIsSelected;
+ChatMessage? chatsIsSelected;
 
 class _HomePageState extends State<HomePage> {
   PanelController panelController = PanelController();
@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        return constraints.maxWidth < 768
+        return constraints.maxWidth < 768.w
             ? Stack(
                 children: [
                   BlocBuilder<ChatBloc, ChatState>(buildWhen: (previous, current) {
@@ -53,32 +53,96 @@ class _HomePageState extends State<HomePage> {
                     return true;
                   }, builder: (context, state) {
                     if (chats.isNotEmpty) {
-                      chatsIsSelected = chats.where((element) => element.isSelected).toList();
-                      log(chatsIsSelected.length.toString());
+                      try {
+                        chatsIsSelected = chats.firstWhere((element) => element.isSelected);
+                    
+                      } catch (e) {
+                        chatsIsSelected = null;
+                      }
                     }
                     return Scaffold(
                       backgroundColor: AppColors.mainBackground,
-                      appBar: AppBar(
-                        title: Text('${BlocProvider.of<ChatBloc>(context).repository.currentChat}  💻'),
-                        actions: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: IconButton(
-                              icon: SvgPicture.asset(
-                                Images.threeDots,
-                                key: iconBtn,
-                              ),
-                              onPressed: () => taskMoreDialogFromChat(context, getWidgetPosition(iconBtn), (index) {}),
-                            ),
-                          ),
-                        ],
-                      ),
-                      drawer: const SizedBox(
-                        width: 350,
-                        child: Drawer(
-                          child: SafeArea(child: DrawerContent()),
-                        ),
-                      ),
+                      appBar: chatsIsSelected == null
+                          ? AppBar(
+                              title: Text('${BlocProvider.of<ChatBloc>(context).repository.currentChat}  💻'),
+                              actions: [
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 10),
+                                  child: IconButton(
+                                    icon: SvgPicture.asset(
+                                      Images.threeDots,
+                                      key: iconBtn,
+                                    ),
+                                    onPressed: () =>
+                                        taskMoreDialogFromChat(context, getWidgetPosition(iconBtn), (index) {}),
+                                  ),
+                                ),
+                              ],
+                            )
+                          : chatsIsSelected?.role == Role.assistant
+                              ? AppBar(
+                                  leading: IconButton(
+                                      icon: SvgPicture.asset(
+                                        Images.close,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          for (var element in chats) {
+                                            element.isSelected = false;
+                                          }
+                                        });
+                                        BlocProvider.of<ChatBloc>(context).add(UpdateChatEvent());
+                                      }),
+                                  actions: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 10),
+                                      child: IconButton(
+                                          icon: SvgPicture.asset(
+                                            Images.copy,
+                                          ),
+                                          onPressed: () {}),
+                                    ),
+                                  ],
+                                )
+                              : AppBar(
+                                  leading: IconButton(
+                                      icon: SvgPicture.asset(
+                                        Images.close,
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          for (var element in chats) {
+                                            element.isSelected = false;
+                                          }
+                                        });
+                                        BlocProvider.of<ChatBloc>(context).add(UpdateChatEvent());
+                                      }),
+                                  actions: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 10),
+                                      child: IconButton(
+                                          icon: SvgPicture.asset(
+                                            Images.refresh,
+                                          ),
+                                          onPressed: () {}),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 10),
+                                      child: IconButton(
+                                          icon: SvgPicture.asset(
+                                            Images.editing,
+                                          ),
+                                          onPressed: () {}),
+                                    ),
+                                  ],
+                                ),
+                      // drawer: const SizedBox(
+                      //   width: 350,
+                      //   child: Drawer(
+                      //     child: SafeArea(child: DrawerContent()),
+                      //   ),
+                      // ),
+
                       body: Container(
                         color: AppColors.mainBackground,
                         child: const ChatWidget(),
