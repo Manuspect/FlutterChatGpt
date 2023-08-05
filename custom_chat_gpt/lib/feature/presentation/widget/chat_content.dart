@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:custom_chat_gpt/feature/data/models/message_to_send_model.dart';
 import 'package:custom_chat_gpt/feature/data/repositories/repository_impl.dart';
 import 'package:custom_chat_gpt/feature/presentation/bloc/test_bloc/chat_bloc.dart';
@@ -39,7 +41,7 @@ class _ChatContentState extends State<ChatContent> {
           // height: 600,
           child: chats.isNotEmpty
               ? SingleChildScrollView(
-                reverse: true,
+                  reverse: true,
                   controller: scrollController,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -58,7 +60,9 @@ class _ChatContentState extends State<ChatContent> {
 
                         return state is! ResponseGot
                             ? const AIStreamCard()
-                            : Container();
+                            : state is! UpdateChatState
+                                ? const AIStreamCard()
+                                : Container();
                       }),
                       const SizedBox(
                         height: 150,
@@ -80,7 +84,7 @@ class _ChatContentState extends State<ChatContent> {
   }
 
   chatMessages() {
-    // print('Chats: ${chats}');
+    log(chats.toString());
     return chats.isNotEmpty
         ? ScrollConfiguration(
             behavior: ScrollConfiguration.of(context).copyWith(
@@ -89,12 +93,15 @@ class _ChatContentState extends State<ChatContent> {
                 PointerDeviceKind.mouse,
               },
             ),
-            child: SizedBox(
+            child: SizedBox(  
                 width: 768,
                 child: Column(
                   children: [
-                    ...chats.where((element) => element.role != Role.assistant)
-                        .map((e) =>  ChatMessageCard(chatMessage: e,))
+                    ...chats
+                        .where((element) => element.role != Role.assistant)
+                        .map((e) => ChatMessageCard(
+                              chatMessage: e,
+                            ))
                         .toList(),
                   ],
                 )),

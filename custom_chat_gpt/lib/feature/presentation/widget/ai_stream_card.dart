@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:custom_chat_gpt/feature/data/models/message_to_send_model.dart';
 import 'package:custom_chat_gpt/feature/presentation/bloc/test_bloc/chat_bloc.dart';
 import 'package:custom_chat_gpt/feature/presentation/pages/home_page.dart';
@@ -20,22 +22,25 @@ class _AIStreamCardState extends State<AIStreamCard> {
   @override
   void initState() {
     _channel = BlocProvider.of<ChatBloc>(context).repository.remoteDatasource.channel;
-    
+
     _channel.stream.listen((event) {
       setState(() {
         res += event;
       });
     });
-    _channel.sink.done.then((value) {
-      BlocProvider.of<ChatBloc>(context).add(GotResponse(message: res));
-    },);
-    chats.add(ChatMessage(role: Role.assistant, content: res));
+    _channel.sink.done.then(
+      (value) {
+        BlocProvider.of<ChatBloc>(context).add(GotResponse(message: res));
+      },
+    );
     super.initState();
+    if (res != '') {
+      chats.add(ChatMessage(role: Role.assistant, content: res));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    
-    return ChatMessageCard(chatMessage: chats.where((element) => element.role == Role.assistant).last);
+    return ChatMessageCard(chatMessage: ChatMessage(role: Role.assistant, content: res));
   }
 }

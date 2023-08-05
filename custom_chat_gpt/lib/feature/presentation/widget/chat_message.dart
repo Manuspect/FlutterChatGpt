@@ -20,6 +20,7 @@ class ChatMessageCard extends StatefulWidget {
 
   @override
   State<ChatMessageCard> createState() => _ChatMessageCardState();
+  
 }
 
 class _ChatMessageCardState extends State<ChatMessageCard> {
@@ -27,7 +28,6 @@ class _ChatMessageCardState extends State<ChatMessageCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        
         setState(() {
           if (widget.chatMessage.isSelected) {
             widget.chatMessage.isSelected = false;
