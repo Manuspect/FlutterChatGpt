@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+
 import 'package:custom_chat_gpt/feature/data/datasources/response_remote_datasource.dart';
 // import 'package:custom_chat_gpt/feature/data/models/message_model.dart';
 import 'package:custom_chat_gpt/feature/data/models/message_to_send_model.dart';
@@ -23,14 +24,14 @@ class RepositoryImpl implements Repository {
   void sendChatMessage(ChatMessage chatMessage, List<ChatMessage> history) {
     remoteDatasource.initWebSocket(
       WebSocketChannel.connect(
-        Uri.parse('ws://95.165.88.39:80/ws'),
+        Uri.parse('ws://95.165.88.39:8111/ws'),
         // Uri.parse('wss://echo.websocket.events'),
       ),
     );
-    // print('in sendChatMessage');
+    
     String messageToSend = json.encode(
         MessageToSend(chatMessage: chatMessage, history: history).toJson());
-    // print('messageToSend in sendChatMessage${messageToSend}');
+    print('messageToSend in sendChatMessage${messageToSend}'); 
     remoteDatasource.channel.sink.add(messageToSend);
     _history.add(chatMessage);
   }
@@ -54,6 +55,7 @@ class RepositoryImpl implements Repository {
   @override
   void saveResponse(String msg) {
     addToHistory(ChatMessage(role: Role.assistant, content: msg));
+   
     remoteDatasource.channel.sink.close();
   }
   

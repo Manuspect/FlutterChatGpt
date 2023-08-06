@@ -45,7 +45,7 @@ class _ChatMessageCardState extends State<ChatMessageCard> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             color: widget.chatMessage.role == Role.assistant ? AppColors.cellBackground : AppColors.mainBackground,
-            border: widget.chatMessage.isSelected ? Border.all(color: AppColors.iconBlueColor) : Border.all()),
+            border: widget.chatMessage.isSelected ? Border.all(color: AppColors.iconBlueColor) : Border.  all()),
         width: 768.w,
         child: Column(
           children: [

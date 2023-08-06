@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:custom_chat_gpt/feature/data/models/message_to_send_model.dart';
 import 'package:custom_chat_gpt/feature/presentation/bloc/test_bloc/chat_bloc.dart';
 import 'package:custom_chat_gpt/feature/presentation/pages/home_page.dart';

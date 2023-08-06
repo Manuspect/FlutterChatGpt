@@ -58,11 +58,11 @@ class _ChatContentState extends State<ChatContent> {
                           duration: const Duration(milliseconds: 300),
                         );
 
-                        return state is! ResponseGot
-                            ? const AIStreamCard()
-                            : state is! UpdateChatState
+                        return state is! UpdateChatState
+                            ? state is! ResponseGot
                                 ? const AIStreamCard()
-                                : Container();
+                                : Container()
+                            : Container();
                       }),
                       const SizedBox(
                         height: 150,
@@ -93,12 +93,12 @@ class _ChatContentState extends State<ChatContent> {
                 PointerDeviceKind.mouse,
               },
             ),
-            child: SizedBox(  
+            child: SizedBox(
                 width: 768,
                 child: Column(
                   children: [
                     ...chats
-                        .where((element) => element.role != Role.assistant)
+                       
                         .map((e) => ChatMessageCard(
                               chatMessage: e,
                             ))

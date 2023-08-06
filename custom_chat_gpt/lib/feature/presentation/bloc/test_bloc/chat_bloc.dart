@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:custom_chat_gpt/feature/data/models/message_to_send_model.dart';
 import 'package:custom_chat_gpt/feature/data/repositories/repository_impl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,6 +23,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
     on<SendChatMessage>(
       (event, emit) {
+        log("2321321 ${event.message}");
         ChatMessage chatMessage = ChatMessage(role: Role.user, content: event.message);
         repository.sendChatMessage(chatMessage, repository.history);
         emit(
